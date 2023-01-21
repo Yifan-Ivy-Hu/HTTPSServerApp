@@ -24,6 +24,22 @@ def show_index():
     context = {"kvpairs": kvpairs}
     return flask.render_template("index.html", **context)
 
+@kvpair.app.route('/getall/', methods=['GET', 'POST'])
+def get_all():
+    # Connect to database
+    connection = kvpair.model.get_db()
+
+    # Query database
+    context = {}
+    if flask.request.method == "POST":
+        cur = connection.execute(
+            "SELECT key, value "
+            "FROM kvpairs ",
+        )
+        kvpairs = cur.fetchall()
+        context = {"kvpairs": kvpairs}
+    return flask.render_template("getall.html", **context)
+
 @kvpair.app.route('/insert/', methods=['GET', 'POST'])
 def insert_kvpair():
     # Connect to database

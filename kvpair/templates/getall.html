@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+<title>KVPair</title>
+<meta name="description" content="Our first page">
+<meta name="keywords" content="html tutorial template">
+</head>
+<body>
+    <h1>request all the current contents of the key-value structure</h1>
+    <form action="/getall/" method="POST" enctype="multipart/form-data">
+      <input class="btn btn-default" type="submit" name="getall" value="get all">
+    </form>
+    {% for kvpair in kvpairs %}
+    <p>{{kvpair.key}} {{kvpair.value}}</p>
+    {% endfor %}
+</body>
+</html>
