@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+<title>KVPair</title>
+<meta name="description" content="Our first page">
+<meta name="keywords" content="html tutorial template">
+</head>
+<body>
+    <h1>request the value for a key</h1>
+    <form action="/getvalue/" method="POST" enctype="multipart/form-data">
+      <input type="text" placeholder="key" name="key" value="{{request.form.key}}">
+      <input class="btn btn-default" type="submit" name="getvalue" value="get value">
+      <h1>{{ value }}</h1>
+    </form>
+</body>
+</html>
