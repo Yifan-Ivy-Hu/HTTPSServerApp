@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+<title>File Upload</title>
+<meta name="description" content="Our first page">
+<meta name="keywords" content="html tutorial template">
+</head>
+<body>
+    <h1>request a list (text or html) of uploaded files</h1>
+    <form action="/getfilelist/" method="POST" enctype="multipart/form-data">
+      <input class="btn btn-default" type="submit" name="getfilelist" value="get file list">
+    </form>
+    {% for file in files %}
+    <p>{{file.filename}}</p>
+    {% endfor %}
+</body>
+</html>

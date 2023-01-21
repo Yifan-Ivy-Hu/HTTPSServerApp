@@ -1,0 +1,11 @@
+<html>  
+<head>  
+    <title>upload file</title>  
+</head>  
+<body>  
+    <form action = "/uploadfile/" method = "POST" enctype="multipart/form-data">  
+        <input type="file" name="file" value="{{request.form.file}}"/>  
+        <input type ="submit" name="upload" value="upload">
+    </form>  
+</body>  
+</html>

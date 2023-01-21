@@ -7,7 +7,9 @@ refer: https://eecs485staff.github.io/p2-insta485-serverside/setup_flask.html
 """
 import flask
 import kvpair
-
+from fileinput import filename
+import shutil
+import os
 
 @kvpair.app.route('/', methods=['GET'])
 def show_index():
@@ -91,6 +93,44 @@ def get_value():
         cur = connection.execute("SELECT value "
             "FROM kvpairs WHERE key = ?",(key,))
         value = cur.fetchone()
-        print("!!!", value)
         context = {"value": value}
     return flask.render_template("getvalue.html", **context)
+
+@kvpair.app.route('/getfilelist/', methods=['GET', 'POST'])
+def get_list():
+    # Connect to database
+    connection = kvpair.model.get_db()
+
+    # Query database
+    context = {}
+    if flask.request.method == "POST":
+        cur = connection.execute(
+            "SELECT filename "
+            "FROM files ",
+        )
+        files = cur.fetchall()
+        context = {"files": files}
+    return flask.render_template("fileupload/getfilelist.html", **context)
+
+@kvpair.app.route('/uploadfile/', methods=['GET', 'POST'])
+def upload_file():
+    # source: https://www.geeksforgeeks.org/how-to-upload-file-in-python-flask/
+    # Connect to database
+    connection = kvpair.model.get_db()
+
+    context = {}
+    if flask.request.method == "POST":
+        f = flask.request.files['file']
+        # save file to root dir
+        f.save(f.filename)
+        # move file from root dir to /var/uploads
+        updatedFilePath = os.path.join(kvpair.app.config["UPLOAD_FOLDER"], f.filename)
+        shutil.move(f.filename, updatedFilePath)
+
+        connection.execute(
+            "INSERT INTO files(filename) "
+            "VALUES (?)", (f.filename,))
+    return flask.render_template("fileupload/uploadfile.html", **context)
+
+#@kvpair.app.route('/downloadfile/', methods=['GET', 'POST'])
+#def download_file():
