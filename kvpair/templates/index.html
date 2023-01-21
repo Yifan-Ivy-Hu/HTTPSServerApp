@@ -6,11 +6,9 @@
 <meta name="keywords" content="html tutorial template">
 </head>
 <body>
-    <h1>Specify a value to be stored under a key</h1>
-    <form method="POST" action="/">
-      <input tupe="text" placeholder="key" name="key">
-      <input tupe="text" placeholder="value" name="value">
-      <input type="submit">
-    </form>
+    <h1>All Key-value Pairs</h1>
+    {% for kvpair in kvpairs %}
+    <p>{{kvpair.key}} {{kvpair.value}}</p>
+    {% endfor %}
 </body>
 </html>
