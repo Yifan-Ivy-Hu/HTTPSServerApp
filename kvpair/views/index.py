@@ -30,7 +30,7 @@ def get_all():
         )
         kvpairs = cur.fetchall()
         context = {"kvpairs": kvpairs}
-    return flask.render_template("getall.html", **context)
+    return flask.render_template("keyvaluepair/getall.html", **context)
 
 @kvpair.app.route('/insert/', methods=['GET', 'POST'])
 def insert_kvpair():
@@ -46,13 +46,13 @@ def insert_kvpair():
             "FROM kvpairs WHERE key = ?",(key,))
         existedValue = cur.fetchone()
         if existedValue != None:
-            return flask.render_template("insert.html", **context)
+            return flask.render_template("keyvaluepair/insert.html", **context)
         value = flask.request.form.get('value')
         connection.execute(
             "INSERT INTO kvpairs(key, value) "
             "VALUES (?, ?)", (key, value,))
 
-    return flask.render_template("insert.html", **context)
+    return flask.render_template("keyvaluepair/insert.html", **context)
 
 @kvpair.app.route('/delete/', methods=['GET', 'POST'])
 def delete_kvpair():
@@ -65,7 +65,7 @@ def delete_kvpair():
         connection.execute(
             "DELETE FROM kvpairs WHERE key = ?", (key,))
     # if key does not exist, request ignored
-    return flask.render_template("delete.html", **context)
+    return flask.render_template("keyvaluepair/delete.html", **context)
 
 @kvpair.app.route('/deleteall/', methods=['GET', 'POST'])
 def delete_all_kvpairs():
@@ -76,7 +76,7 @@ def delete_all_kvpairs():
     if flask.request.method == "POST":
         key = flask.request.form.get('key')
         connection.execute("DELETE FROM kvpairs")
-    return flask.render_template("deleteall.html", **context)
+    return flask.render_template("keyvaluepair/deleteall.html", **context)
 
 @kvpair.app.route('/getvalue/', methods=['GET', 'POST'])
 def get_value():
@@ -90,7 +90,7 @@ def get_value():
             "FROM kvpairs WHERE key = ?",(key,))
         value = cur.fetchone()
         context = {"value": value}
-    return flask.render_template("getvalue.html", **context)
+    return flask.render_template("keyvaluepair/getvalue.html", **context)
 
 @kvpair.app.route('/getfilelist/', methods=['GET', 'POST'])
 def get_list():
