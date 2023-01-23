@@ -118,9 +118,18 @@ def upload_file():
     # Connect to database
     connection = kvpair.model.get_db()
 
-    context = {}
+    context = {"fileExisted" : False}
     if flask.request.method == "POST":
         f = flask.request.files['file']
+
+        # if filename already exists, request ignored
+        cur = connection.execute("SELECT filename "
+            "FROM files WHERE filename = ?",(f.filename,))
+        existedFile = cur.fetchone()
+        if existedFile != None:
+            context = {"fileExisted" : True}
+            return flask.render_template("fileupload/uploadfile.html", **context)
+        
         # save file to root dir
         f.save(f.filename)
         # move file from root dir to /var/uploads
@@ -147,6 +156,16 @@ def download_file():
     context = {"files": files}
     if flask.request.method == "POST":
         filenameToDownload = flask.request.form.get('filename')
+
+        # if filename not found, request ignored
+        cur = connection.execute(
+            "SELECT filename "
+            "FROM files "
+            "WHERE filename = ?", (filenameToDownload,)
+        )
+        fileWithSameFilename = cur.fetchone()
+        if fileWithSameFilename == None:
+            return flask.render_template("fileupload/downloadfile.html", **context)
         return flask.redirect(flask.url_for('download', filename=filenameToDownload))
     return flask.render_template("fileupload/downloadfile.html", **context)
 
