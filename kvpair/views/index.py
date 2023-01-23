@@ -132,5 +132,28 @@ def upload_file():
             "VALUES (?)", (f.filename,))
     return flask.render_template("fileupload/uploadfile.html", **context)
 
-#@kvpair.app.route('/downloadfile/', methods=['GET', 'POST'])
-#def download_file():
+@kvpair.app.route('/downloadfile/', methods=['GET', 'POST'])
+def download_file():
+    # Connect to database
+    connection = kvpair.model.get_db()
+
+    # Query database
+    context = {}
+    cur = connection.execute(
+        "SELECT filename "
+        "FROM files ",
+    )
+    files = cur.fetchall()
+    context = {"files": files}
+    if flask.request.method == "POST":
+        filenameToDownload = flask.request.form.get('filename')
+        return flask.redirect(flask.url_for('download', filename=filenameToDownload))
+    return flask.render_template("fileupload/downloadfile.html", **context)
+
+@kvpair.app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    # source: https://www.educative.io/answers/how-to-download-files-in-flask
+
+    uploadsFolder = kvpair.app.config['UPLOAD_FOLDER']
+    # file downloaded
+    return flask.send_from_directory(directory=uploadsFolder, path=filename, as_attachment=True)

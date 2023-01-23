@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+<title>File Upload</title>
+<meta name="description" content="Our first page">
+<meta name="keywords" content="html tutorial template">
+</head>
+<body>
+    <h1>request a specific file for download</h1>
+    <form action="/downloadfile/" method="POST" enctype="multipart/form-data">
+      <input type="text" placeholder="filename" name="filename" value="{{request.form.filename}}">
+      <input class="btn btn-default" type="submit" name="getfile" value="get file">
+    </form>
+    <br>
+    <h3>Copy a file name from the list here</h3>
+    {% for file in files %}
+    <p>{{file.filename}}</p>
+    {% endfor %}
+</body>
+</html>
