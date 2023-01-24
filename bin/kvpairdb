@@ -25,6 +25,7 @@ case $1 in
                 mkdir -p var/uploads
                 sqlite3 var/kvpair.sqlite3 < sql/schema.sql
                 sqlite3 var/kvpair.sqlite3 < sql/data.sql
+                cp sql/uploads/* var/uploads/
         ;;
         "destroy")
                 rm -rf var/kvpair.sqlite3 var/uploads
@@ -34,6 +35,7 @@ case $1 in
                 mkdir -p var/uploads
                 sqlite3 var/kvpair.sqlite3 < sql/schema.sql
                 sqlite3 var/kvpair.sqlite3 < sql/data.sql
+                cp sql/uploads/* var/uploads/
         ;;
         "dump")
                 sqlite3 -batch -line var/kvpair.sqlite3 'SELECT * FROM kvpairs'

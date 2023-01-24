@@ -1,7 +1,3 @@
-import re
-import bs4
-
-
 def test_index(client):
     """Test homepage"""
     response = client.get(
@@ -128,7 +124,7 @@ def test_delete_all_kvpairs(client):
     assert b"test_key_2 test_value_2" not in response.data
 
 def test_get_value_for_key(client):
-    """Test get value for a key that the user specified"""
+    """Test getting the value for a key that the user specified"""
     # insert a kvpair
     client.post(
         "/kvpair/insert/",

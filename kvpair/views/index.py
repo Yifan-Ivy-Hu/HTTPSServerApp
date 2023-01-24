@@ -1,5 +1,5 @@
 """
-kvpair index (main) view.
+index (main) view.
 
 URLs include:
 /
