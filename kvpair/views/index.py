@@ -19,7 +19,7 @@ def show_index():
 def show_index_helper():
     return flask.render_template("index.html")
 
-@kvpair.app.route('/getall/', methods=['GET', 'POST'])
+@kvpair.app.route('/kvpair/getall/', methods=['GET', 'POST'])
 def get_all():
     # Connect to database
     connection = kvpair.model.get_db()
@@ -34,7 +34,7 @@ def get_all():
         context = {"kvpairs": kvpairs}
     return flask.render_template("keyvaluepair/getall.html", **context)
 
-@kvpair.app.route('/insert/', methods=['GET', 'POST'])
+@kvpair.app.route('/kvpair/insert/', methods=['GET', 'POST'])
 def insert_kvpair():
     # Connect to database
     connection = kvpair.model.get_db()
@@ -56,7 +56,7 @@ def insert_kvpair():
 
     return flask.render_template("keyvaluepair/insert.html", **context)
 
-@kvpair.app.route('/delete/', methods=['GET', 'POST'])
+@kvpair.app.route('/kvpair/delete/', methods=['GET', 'POST'])
 def delete_kvpair():
     # Connect to database
     connection = kvpair.model.get_db()
@@ -69,7 +69,7 @@ def delete_kvpair():
     # if key does not exist, request ignored
     return flask.render_template("keyvaluepair/delete.html", **context)
 
-@kvpair.app.route('/deleteall/', methods=['GET', 'POST'])
+@kvpair.app.route('/kvpair/deleteall/', methods=['GET', 'POST'])
 def delete_all_kvpairs():
     # Connect to database
     connection = kvpair.model.get_db()
@@ -80,7 +80,7 @@ def delete_all_kvpairs():
         connection.execute("DELETE FROM kvpairs")
     return flask.render_template("keyvaluepair/deleteall.html", **context)
 
-@kvpair.app.route('/getvalue/', methods=['GET', 'POST'])
+@kvpair.app.route('/kvpair/getvalue/', methods=['GET', 'POST'])
 def get_value():
     # Connect to database
     connection = kvpair.model.get_db()
@@ -94,7 +94,7 @@ def get_value():
         context = {"value": value}
     return flask.render_template("keyvaluepair/getvalue.html", **context)
 
-@kvpair.app.route('/getfilelist/', methods=['GET', 'POST'])
+@kvpair.app.route('/fileupload/getfilelist/', methods=['GET', 'POST'])
 def get_list():
     # Connect to database
     connection = kvpair.model.get_db()
@@ -110,7 +110,7 @@ def get_list():
         context = {"files": files}
     return flask.render_template("fileupload/getfilelist.html", **context)
 
-@kvpair.app.route('/uploadfile/', methods=['GET', 'POST'])
+@kvpair.app.route('/fileupload/uploadfile/', methods=['GET', 'POST'])
 def upload_file():
     # source: https://www.geeksforgeeks.org/how-to-upload-file-in-python-flask/
     # Connect to database
@@ -139,7 +139,7 @@ def upload_file():
             "VALUES (?)", (f.filename,))
     return flask.render_template("fileupload/uploadfile.html", **context)
 
-@kvpair.app.route('/downloadfile/', methods=['GET', 'POST'])
+@kvpair.app.route('/fileupload/downloadfile/', methods=['GET', 'POST'])
 def download_file():
     # Connect to database
     connection = kvpair.model.get_db()

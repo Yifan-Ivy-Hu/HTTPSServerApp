@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>request a specific file for download</h1>
-    <form action="/downloadfile/" method="POST" enctype="multipart/form-data">
+    <form action="/fileupload/downloadfile/" method="POST" enctype="multipart/form-data">
       <input type="text" placeholder="filename" name="filename" value="{{request.form.filename}}">
       <input class="btn btn-default" type="submit" name="getfile" value="get file">
     </form>

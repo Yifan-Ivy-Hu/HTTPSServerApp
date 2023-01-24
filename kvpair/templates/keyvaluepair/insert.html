@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Specify a value to be stored under a key</h1>
-    <form action="/insert/" method="POST" enctype="multipart/form-data">
+    <form action="/kvpair/insert/" method="POST" enctype="multipart/form-data">
       <input type="text" placeholder="key" name="key" value="{{request.form.key}}">
       <input type="text" placeholder="value" name="value" value="{{request.form.value}}">
       <input class="btn btn-default" type="submit" name="insert" value="insert">
