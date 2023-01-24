@@ -11,7 +11,7 @@ set -Eeuo pipefail
 
 # Sanity check command line options
 usage() {
-  echo "Usage: $0 (create|destroy|reset)"
+  echo "Usage: $0 (create|destroy|reset|dump)"
 }
 
 if [ $# -ne 1 ]; then
@@ -30,8 +30,14 @@ case $1 in
                 rm -rf var/kvpair.sqlite3 var/uploads
         ;;
         "reset")
+                rm -rf var/kvpair.sqlite3 var/uploads
+                mkdir -p var/uploads
                 sqlite3 var/kvpair.sqlite3 < sql/schema.sql
                 sqlite3 var/kvpair.sqlite3 < sql/data.sql
+        ;;
+        "dump")
+                sqlite3 -batch -line var/kvpair.sqlite3 'SELECT * FROM kvpairs'
+                sqlite3 -batch -line var/kvpair.sqlite3 'SELECT * FROM files'
         ;;
         *)
         usage

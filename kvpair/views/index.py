@@ -14,7 +14,9 @@ import os
 @kvpair.app.route('/', methods=['GET'])
 def show_index():
     """Display all the routes for both servers."""
-    print("!!!", flask.render_template("index.html"))
+    return show_index_helper()
+
+def show_index_helper():
     return flask.render_template("index.html")
 
 @kvpair.app.route('/getall/', methods=['GET', 'POST'])
