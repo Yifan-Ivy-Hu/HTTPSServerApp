@@ -19,6 +19,5 @@ app.config.from_envvar('KVPAIR_SETTINGS', silent=True)
 # circular import, which is naughty, but Flask was designed that way.
 # (Reference http://flask.pocoo.org/docs/patterns/packages/)  We're
 # going to tell pylint and pycodestyle to ignore this coding style violation.
-import kvpair.api  # noqa: E402  pylint: disable=wrong-import-position
 import kvpair.views  # noqa: E402  pylint: disable=wrong-import-position
 import kvpair.model  # noqa: E402  pylint: disable=wrong-import-position
