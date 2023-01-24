@@ -62,7 +62,7 @@ def test_download_file(client):
     )
     # test if redirection happens
     assert response.status_code == 302
-    assert response.location == "/downloads/test.txt"
+    assert response.location == "/fileupload/downloads/test.txt"
 
     # ask to download a file that does not exist
     response = client.post(

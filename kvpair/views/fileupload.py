@@ -1,3 +1,12 @@
+"""
+fileuploader views.
+
+URLs include:
+/fileupload/getfilelist/
+/fileupload/uploadfile/
+/fileupload/downloadfile/
+/fileupload/downloads/<path:filename>
+"""
 import flask
 import kvpair
 from fileinput import filename
@@ -79,9 +88,9 @@ def download_file():
         return flask.redirect(flask.url_for('download', filename=filenameToDownload))
     return flask.render_template("fileupload/downloadfile.html", **context)
 
-@kvpair.app.route('/downloads/<path:filename>', methods=['GET', 'POST'])
+@kvpair.app.route('/fileupload/downloads/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
-    # /downloadfile/ will be redirected to /downloads/<path:filename> for downloading a file as an attachment
+    # /downloadfile/ will be redirected to /fileupload/downloads/<path:filename> for downloading a file as an attachment
     # source: https://www.educative.io/answers/how-to-download-files-in-flask
 
     uploadsFolder = kvpair.app.config['UPLOAD_FOLDER']
