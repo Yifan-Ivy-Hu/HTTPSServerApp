@@ -23,7 +23,7 @@ sys.path.append(topdir)
 
 import subprocess
 import pytest
-import kvpair
+import httpsserver
 
 
 @pytest.fixture(name="client")
@@ -34,18 +34,18 @@ def client_setup_teardown():
     Flask docs: https://flask.palletsprojects.com/en/1.1.x/testing/#testing
     """
     # Reset the database
-    subprocess.run(["bin/kvpairdb", "reset"], check=True)
+    subprocess.run(["bin/httpsserverdb", "reset"], check=True)
 
     # Configure Flask test server
-    kvpair.app.config["TESTING"] = True
+    httpsserver.app.config["TESTING"] = True
 
     # Transfer control to test.  The code before the "yield" statement is setup
     # code, which is executed before the test.  Code after the "yield" is
     # teardown code, which is executed at the end of the test.  Teardown code
     # is executed whether the test passed or failed.
-    with kvpair.app.test_client() as client:
+    with httpsserver.app.test_client() as client:
         yield client
 
     # Reset the database. After running any test any of the changes made
     # to the database should be undone.
-    subprocess.run(["bin/kvpairdb", "reset"], check=True)
+    subprocess.run(["bin/httpsserverdb", "reset"], check=True)

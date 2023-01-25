@@ -3,7 +3,7 @@ requires = ["setuptools>=64.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kvpair"
+name = "httpsserver"
 version = "0.1.0"
 dependencies = [
     "arrow",
@@ -20,4 +20,4 @@ dependencies = [
 requires-python = ">=3.8"
 
 [tool.setuptools]
-packages = ["kvpair"]
+packages = ["httpsserver"]

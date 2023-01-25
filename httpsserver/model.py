@@ -1,7 +1,7 @@
-"""kvpair model (database) API. source: https://eecs485staff.github.io/p2-insta485-serverside/setup_flask.html"""
+"""httpsserver model (database) API. source: https://eecs485staff.github.io/p2-insta485-serverside/setup_flask.html"""
 import sqlite3
 import flask
-import kvpair
+import httpsserver
 
 
 def dict_factory(cursor, row):
@@ -20,7 +20,7 @@ def get_db():
     https://flask.palletsprojects.com/en/1.0.x/appcontext/#storing-data
     """
     if 'sqlite_db' not in flask.g:
-        db_filename = kvpair.app.config['DATABASE_FILENAME']
+        db_filename = httpsserver.app.config['DATABASE_FILENAME']
         flask.g.sqlite_db = sqlite3.connect(str(db_filename))
         flask.g.sqlite_db.row_factory = dict_factory
 
@@ -31,7 +31,7 @@ def get_db():
     return flask.g.sqlite_db
 
 
-@kvpair.app.teardown_appcontext
+@httpsserver.app.teardown_appcontext
 def close_db(error):
     """Close the database at the end of a request.
 

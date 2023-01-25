@@ -9,12 +9,12 @@ URLs include:
 /kvpair/getvalue/
 """
 import flask
-import kvpair
+import httpsserver
 
-@kvpair.app.route('/kvpair/getall/', methods=['GET', 'POST'])
+@httpsserver.app.route('/kvpair/getall/', methods=['GET', 'POST'])
 def get_all():
     # Connect to database
-    connection = kvpair.model.get_db()
+    connection = httpsserver.model.get_db()
 
     context = {}
     if flask.request.method == "POST":
@@ -26,10 +26,10 @@ def get_all():
         context = {"kvpairs": kvpairs}
     return flask.render_template("keyvaluepair/getall.html", **context)
 
-@kvpair.app.route('/kvpair/insert/', methods=['GET', 'POST'])
+@httpsserver.app.route('/kvpair/insert/', methods=['GET', 'POST'])
 def insert_kvpair():
     # Connect to database
-    connection = kvpair.model.get_db()
+    connection = httpsserver.model.get_db()
 
     context = {}
     if flask.request.method == "POST":
@@ -48,10 +48,10 @@ def insert_kvpair():
 
     return flask.render_template("keyvaluepair/insert.html", **context)
 
-@kvpair.app.route('/kvpair/delete/', methods=['GET', 'POST'])
+@httpsserver.app.route('/kvpair/delete/', methods=['GET', 'POST'])
 def delete_kvpair():
     # Connect to database
-    connection = kvpair.model.get_db()
+    connection = httpsserver.model.get_db()
 
     context = {}
     if flask.request.method == "POST":
@@ -61,10 +61,10 @@ def delete_kvpair():
     # if key does not exist, request ignored
     return flask.render_template("keyvaluepair/delete.html", **context)
 
-@kvpair.app.route('/kvpair/deleteall/', methods=['GET', 'POST'])
+@httpsserver.app.route('/kvpair/deleteall/', methods=['GET', 'POST'])
 def delete_all_kvpairs():
     # Connect to database
-    connection = kvpair.model.get_db()
+    connection = httpsserver.model.get_db()
 
     context = {}
     if flask.request.method == "POST":
@@ -72,10 +72,10 @@ def delete_all_kvpairs():
         connection.execute("DELETE FROM kvpairs")
     return flask.render_template("keyvaluepair/deleteall.html", **context)
 
-@kvpair.app.route('/kvpair/getvalue/', methods=['GET', 'POST'])
+@httpsserver.app.route('/kvpair/getvalue/', methods=['GET', 'POST'])
 def get_value():
     # Connect to database
-    connection = kvpair.model.get_db()
+    connection = httpsserver.model.get_db()
 
     context = {"value": ""}
     if flask.request.method == "POST":

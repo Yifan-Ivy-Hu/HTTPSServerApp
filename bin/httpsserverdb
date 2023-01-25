@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# kvpair
+# httpsserver
 #
 #
 
@@ -23,23 +23,23 @@ fi
 case $1 in
         "create")
                 mkdir -p var/uploads
-                sqlite3 var/kvpair.sqlite3 < sql/schema.sql
-                sqlite3 var/kvpair.sqlite3 < sql/data.sql
+                sqlite3 var/httpsserver.sqlite3 < sql/schema.sql
+                sqlite3 var/httpsserver.sqlite3 < sql/data.sql
                 cp sql/uploads/* var/uploads/
         ;;
         "destroy")
-                rm -rf var/kvpair.sqlite3 var/uploads
+                rm -rf var/httpsserver.sqlite3 var/uploads
         ;;
         "reset")
-                rm -rf var/kvpair.sqlite3 var/uploads
+                rm -rf var/httpsserver.sqlite3 var/uploads
                 mkdir -p var/uploads
-                sqlite3 var/kvpair.sqlite3 < sql/schema.sql
-                sqlite3 var/kvpair.sqlite3 < sql/data.sql
+                sqlite3 var/httpsserver.sqlite3 < sql/schema.sql
+                sqlite3 var/httpsserver.sqlite3 < sql/data.sql
                 cp sql/uploads/* var/uploads/
         ;;
         "dump")
-                sqlite3 -batch -line var/kvpair.sqlite3 'SELECT * FROM kvpairs'
-                sqlite3 -batch -line var/kvpair.sqlite3 'SELECT * FROM files'
+                sqlite3 -batch -line var/httpsserver.sqlite3 'SELECT * FROM kvpairs'
+                sqlite3 -batch -line var/httpsserver.sqlite3 'SELECT * FROM files'
         ;;
         *)
         usage

@@ -1,5 +1,4 @@
 import io
-from flask import request
 
 def test_get_file_list(client):
     """Test if getting file list is working.

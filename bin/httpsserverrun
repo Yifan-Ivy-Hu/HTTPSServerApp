@@ -1,16 +1,16 @@
 #!/bin/bash
 #
-# kvpairrun
+# httpsserverrun
 #  
 #
 
 set -x
 set -Eeuo pipefail
 
-./bin/kvpairdb reset
+./bin/httpsserverdb reset
 
 export FLASK_DEBUG=True
-export FLASK_APP=kvpair
-export KVPAIR_SETTINGS=config.py
+export FLASK_APP=httpsserver
+export HTTPSSERVER_SETTINGS=config.py
 
 flask run --host 0.0.0.0 --port 5050
